@@ -261,7 +261,7 @@ const MapWrapper = withScriptjs(
         ]
       }}
     >
-      <Marker position={{ lat: 40.748817, lng: -73.985428 }} />
+      {/* <Marker position={{ lat: 40.748817, lng: -73.985428 }} /> */}
     </GoogleMap>
   ))
 );
