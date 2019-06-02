@@ -20,16 +20,15 @@ class Footer extends React.Component {
             </NavItem>
           </Nav>
           <div className="copyright">
-            © {new Date().getFullYear()} made with{" "}
-            <i className="tim-icons icon-heart-2" /> by{" "}
+            © {new Date().getFullYear()}{" "}
+            by{" "}
             <a
               href="javascript:void(0)"
               rel="noopener noreferrer"
               target="_blank"
             >
-              Creative Tim
+              LOTUS
             </a>{" "}
-            for a better web.
           </div>
         </Container>
       </footer>
