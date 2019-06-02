@@ -38,7 +38,7 @@ class Login extends React.Component {
         if (email && password) {
             await login({email,password}).then(
                 user =>{
-                    this.props.history.push('/admin/dashboard');
+                    this.props.history.push('/admin/home');
                 },
                 error =>{
                     this.setState({alertMessage:error.data.error});
