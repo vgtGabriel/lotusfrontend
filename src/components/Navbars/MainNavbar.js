@@ -1,4 +1,4 @@
-import React from "react";
+import React,{Component} from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 import {Link} from 'react-router-dom'
@@ -21,7 +21,7 @@ import {
   Modal
 } from "reactstrap";
 
-class AdminNavbar extends React.Component {
+class MainNavbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -221,4 +221,4 @@ class AdminNavbar extends React.Component {
   }
 }
 
-export default AdminNavbar;
+export default MainNavbar;

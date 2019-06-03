@@ -38,7 +38,7 @@ class Login extends React.Component {
         if (email && password) {
             await login({email,password}).then(
                 user =>{
-                    this.props.history.push('/admin/home');
+                    this.props.history.push('/admin');
                 },
                 error =>{
                     this.setState({alertMessage:error.data.error});
@@ -56,7 +56,7 @@ class Login extends React.Component {
                 <div className= 'LoginContainer'>
                 <LoginContent>
                     <div>
-                        {!!this.state.alertMessage && <div>{this.state.alertMessage}</div>}   
+                        {!!this.state.alertMessage && <div className = 'alert'>{this.state.alertMessage}</div>}   
                     </div><br/>
                 <Form name="form" onSubmit={this.handleSubmit}>
                     <FormGroup>
