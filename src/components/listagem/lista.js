@@ -10,31 +10,46 @@ import {
 } from 'reactstrap';
 import DonorsList from './ListaDoadores'
 import {getDonorsList} from '../../services/userServices'
+import socket from 'socket.io-client'
+import Donor from './donor'
 
 class ToListDonors extends Component {
     constructor(props){
         super(props);
 
         this.state={
-            lista:[]
+            donorerList:[]
         }
     }
-
     async componentDidMount(){
+        this.subscribeToEvents();
         await getDonorsList().then(
             response=>{
-                this.setState({lista:response},()=>{
-                    console.log('lista:', this.state.lista)
+                this.setState({donorerList:response},()=>{
+                    console.log('lista:', this.state.donorerList)
                 })
                 //console.log('aqui:', response.data.username);
             },
             error=>{
                 console.log('error')
             }
-        )
-    }
-
-    render() {
+            )
+        }
+        subscribeToEvents = () =>{
+            // const socket = socket('http://localhost:3000');
+            // socket.on('test',data =>{
+            //     this.setState({list:[data, ...this.state.list]})
+            // });
+            // socket.on('donorsUpdate', data =>{
+            //     this.setState({
+            //         list: this.state.list.map(
+            //             donor => (donor._id === data._id ? data : donor)
+            //         )
+            //     });
+            // });
+        };
+        
+        render() {
         return ( 
             <>
                <div className="content">
@@ -70,7 +85,9 @@ class ToListDonors extends Component {
                                 <h4>Midias Sociais</h4>
                             </Col>
                         </Row>
-                        <DonorsList lista={this.state.lista}></DonorsList>
+                        {this.state.donorerList.map(donor =>(
+                            <Donor key ={donor.id} donor = {donor} />
+                        ))}
                     </CardBody>
                 </Card>
                </div>

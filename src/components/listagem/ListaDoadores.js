@@ -6,12 +6,12 @@ import{
     CardBody
 } from 'reactstrap'
 
-const ListaDoadores = ({lista}) => {
+const ListaDoadores = ({list}) => {
 
     return(
         <>
             {
-                lista.map(use =>
+                list.map(use =>
                     <Card>
                     <CardBody>
                         <Row>

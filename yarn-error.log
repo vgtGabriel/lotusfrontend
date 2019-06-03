@@ -1,11 +1,11 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Toga\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add jsonwebtoken
+  C:\Program Files\nodejs\node.exe C:\Users\Lenovo\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add axios
 
 PATH: 
-  C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH\;C:\Users\Toga\AppData\Local\Microsoft\WindowsApps;C:\Users\Toga\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Toga\AppData\Roaming\npm;C:\Users\Toga\AppData\Local\GitHubDesktop\bin;C:\Users\Toga\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\FAHClient;C:\Program Files\heroku\bin
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Users\Lenovo\AppData\Local\Microsoft\WindowsApps;C:\Users\Lenovo\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Lenovo\AppData\Local\GitHubDesktop\bin;C:\Users\Lenovo\AppData\Roaming\npm;C:\Program Files\heroku\bin
 
 Yarn version: 
-  1.15.2
+  1.16.0
 
 Node version: 
   10.15.3
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: connect ETIMEDOUT 104.16.20.35:443
+  Error: connect ETIMEDOUT 104.16.18.35:443
       at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1097:14)
 
 npm manifest: 

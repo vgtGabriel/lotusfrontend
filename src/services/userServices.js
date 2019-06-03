@@ -1,6 +1,5 @@
 import api from '../services/api';
-import localStorage from 'localStorage';
-import { flattenProp } from 'recompose';
+import sessionStorage from 'localStorage';
 
 export const login = async (data) =>{
     const {email,password} = data;
@@ -18,12 +17,16 @@ export const login = async (data) =>{
     return response;
 }
 export const isAuthenticated = async () => {
-    const token = await sessionStorage.getItem('@lotus:token');
     
-    if(token)
+    const token = await sessionStorage.getItem('@lotus:token');
+    if(token){
+        console.log('true' , token)
         return true;
-    else
+    }
+    else{
+        console.log('false', token);
         return false;
+    }
 };
 export const setDonors = async(data) =>{
     try{
@@ -35,7 +38,18 @@ export const setDonors = async(data) =>{
     }
 }
 export const getDonorsList = async()=>{
-    const response = await api.post('/project/listarDoadores');
+    const response = await api.post('/auth/listarDoadores');
     return response.data;
 }
-
+export const loadAccount = async () =>{
+    
+    const token = await sessionStorage.getItem('@lotus:token');
+    if(token){
+        console.log('load true', token)
+        return true;
+    }
+    else{
+        console.log('true', token)
+        return false;
+    }
+}

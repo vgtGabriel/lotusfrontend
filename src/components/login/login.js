@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginCss,{BtnLogin,LoginContent,InputsLogin,InputBorder} from './loginStyled';
-import {login} from '../../services/userServices'
+import {login,loadAccount} from '../../services/userServices'
 import icon from '../../images/avatar.svg'
 import lock from '../../images/lock.svg'
 import Checkbox from '../checkbox/checkbox'
@@ -24,19 +24,31 @@ class Login extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    async componentDidMount(){
+        this.subscribeToEvents();
+        this.load();
 
-    handleChange(e) {
+    }
+    load = async () =>{
+        const load = await loadAccount();
+        if(load)
+            this.props.history.push('/home');
+        else
+            this.props.history.push('/');
+    }
+    handleChange = e => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
 
-    async handleSubmit(e) {
+    handleSubmit = e => {
         e.preventDefault();
 
-        this.setState({ submitted: true });
         const { email, password } = this.state;
-        if (email && password) {
-            await login({email,password}).then(
+        if (!(email && password)) return;
+
+            this.setState({ submitted: true });
+            login({email,password}).then(
                 user =>{
                     this.props.history.push('/admin');
                 },
@@ -44,7 +56,7 @@ class Login extends React.Component {
                     this.setState({alertMessage:error.data.error});
                 }
             )
-        };
+    
     }
     render() {
         const { loggingIn } = this.props;
@@ -62,7 +74,7 @@ class Login extends React.Component {
                     <FormGroup>
                         <InputBorder>
                             <i className='av'><img src={icon}/></i>
-                            <InputsLogin type="text" placeholder="USERNAME" name="email" value={email} onChange={this.handleChange} />
+                            <InputsLogin type="text" placeholder="EMAIL" name="email" value={email} onChange={this.handleChange} />
                         </InputBorder>
                         {submitted && !email &&  
                             <div>
