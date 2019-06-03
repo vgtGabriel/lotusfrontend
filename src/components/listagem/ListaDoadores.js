@@ -6,35 +6,17 @@ import{
     CardBody
 } from 'reactstrap'
 
-const NameList = () => {
-    const user=[
-        {
-            name : "Bruce",
-            data : "05/10/2019",
-            social :"whats"
-        },
-        {
-            name : "Arroz",
-            data : "05/10/2019",
-            social :"whats"
-        },
-        {
-            name : "Caldo de Mocoto",
-            data : "05/10/2019",
-            social :"whats"
-        }
-    ]
-    const names = ['Bruce',"Clark"];
+const ListaDoadores = ({lista}) => {
 
     return(
         <>
             {
-                user.map(use =>
+                lista.map(use =>
                     <Card>
                     <CardBody>
                         <Row>
                         <Col md='4'>
-                        <h4>{use.name}</h4>
+                        <h4>{use.username}</h4>
                         </Col>
                         <Col md='4'>
                         <h4>{use.data}</h4>
@@ -52,4 +34,5 @@ const NameList = () => {
         </>
     )
 }
-export default NameList;
+
+export default ListaDoadores;

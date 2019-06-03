@@ -37,8 +37,8 @@ class Login extends React.Component {
         const { email, password } = this.state;
         if (email && password) {
             await login({email,password}).then(
-                user =>{
-                    this.props.history.push('/admin/home');
+                response =>{
+                    this.props.history.push('/admin');
                 },
                 error =>{
                     this.setState({alertMessage:error.data.error});

@@ -1,21 +1,18 @@
-import React from "react";
+import React,{Component} from "react";
 import { Route, Switch,Redirect } from "react-router-dom";
-// javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 
-// core components
-import AdminNavbar from "../../components/Navbars/AdminNavbar";
+import MainNavbar from "../../components/Navbars/MainNavbar";
 import Footer from "../../components/Footer/Footer";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
 import routes from "routes.js";
 
 import logo from "assets/img/lotus.png";
-import Drop from '../../components/dropdown/Dropdown'
 
 var ps;
 
-class Admin extends React.Component {
+class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,7 +52,6 @@ class Admin extends React.Component {
       this.refs.mainPanel.scrollTop = 0;
     }
   }
-  // this function opens and closes the sidebar on small devices
   toggleSidebar = () => {
     document.documentElement.classList.toggle("nav-open");
     this.setState({ sidebarOpened: !this.state.sidebarOpened });
@@ -99,10 +95,10 @@ class Admin extends React.Component {
             routes={routes} 
         
             logo={{
-              //outterLink: "https://www.creative-tim.com/",
               text: "SGD",
               imgSrc: logo
             }}
+
             bgColor={this.state.backgroundColor}
             toggleSidebar={this.toggleSidebar}
           />
@@ -112,16 +108,15 @@ class Admin extends React.Component {
             ref="mainPanel"
             data={this.state.backgroundColor}
           >
-            <AdminNavbar
+            <MainNavbar
               {...this.props}
               brandText={this.getBrandText(this.props.location.pathname)}
               toggleSidebar={this.toggleSidebar}
               sidebarOpened={this.state.sidebarOpened}
             />
             <Switch>{this.getRoutes(routes)}</Switch>
-            <Redirect from="/admin" to="/admin/home" />
-            {// we don't want the Footer to be rendered on map page
-            this.props.location.pathname.indexOf("maps") !== -1 ? null : (
+            <Redirect from="/admin" to="/admin/home"/>
+            {this.props.location.pathname.indexOf("maps") !== -1 ? null : (
               <Footer fluid />
             )}
           </div>
@@ -130,5 +125,4 @@ class Admin extends React.Component {
     );
   }
 }
-
 export default Admin;

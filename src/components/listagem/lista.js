@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ListaCss from './listaStyled';
 import {
     Col,
     Row,
@@ -7,10 +6,33 @@ import {
     CardHeader,
     CardBody,
     Input,
-    FormGroup
+    FormGroup,
 } from 'reactstrap';
-import NameList from './NameList'
-class Lista extends Component {
+import DonorsList from './ListaDoadores'
+import {getDonorsList} from '../../services/userServices'
+
+class ToListDonors extends Component {
+    constructor(props){
+        super(props);
+
+        this.state={
+            lista:[]
+        }
+    }
+
+    async componentDidMount(){
+        await getDonorsList().then(
+            response=>{
+                this.setState({lista:response},()=>{
+                    console.log('lista:', this.state.lista)
+                })
+                //console.log('aqui:', response.data.username);
+            },
+            error=>{
+                console.log('error')
+            }
+        )
+    }
 
     render() {
         return ( 
@@ -48,7 +70,7 @@ class Lista extends Component {
                                 <h4>Midias Sociais</h4>
                             </Col>
                         </Row>
-                        <NameList/>
+                        <DonorsList lista={this.state.lista}></DonorsList>
                     </CardBody>
                 </Card>
                </div>
@@ -56,4 +78,4 @@ class Lista extends Component {
         );
     }
 }
-export default Lista;
+export default ToListDonors;

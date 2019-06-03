@@ -1,6 +1,6 @@
 import {create} from 'apisauce'
 const api = create({
-    baseURL: 'http://lotusbackend.herokuapp.com/',
+    baseURL: process.env.REACT_APP_API_URL,
 });
 api.addResponseTransform(Response =>{
     if(!Response.ok) throw Response;
