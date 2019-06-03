@@ -25,7 +25,7 @@ class Login extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     async componentDidMount(){
-        this.subscribeToEvents();
+        
         this.load();
 
     }
