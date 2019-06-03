@@ -93,16 +93,13 @@ class Admin extends Component {
           <Sidebar
             {...this.props}
             routes={routes} 
-        
             logo={{
               text: "SGD",
               imgSrc: logo
             }}
-
             bgColor={this.state.backgroundColor}
             toggleSidebar={this.toggleSidebar}
           />
-
           <div
             className="main-panel"
             ref="mainPanel"

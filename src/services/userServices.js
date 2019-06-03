@@ -1,40 +1,30 @@
 import api from '../services/api';
 import localStorage from 'localStorage';
+import { flattenProp } from 'recompose';
 
 export const login = async (data) =>{
     const {email,password} = data;
-    try{
-        const response = await api.post('/auth/authenticate',{
-                email:email,
-                password:password
-        });
-        const {token,userOperator} = response.data;
-        await localStorage.setItem(
-            '@lotus:token',token,
-        );
-        await localStorage.setItem(
-            '@lotus:user',JSON.stringify(userOperator),
-        );
-        return response;
-    }catch(error){
-        return {error:'error'}
-    }
+    const response = await api.post('/auth/authenticate',{
+        email:email,
+        password:password
+    });
+    const {token,userOperator} = response.data;
+    await sessionStorage.setItem(
+        '@lotus:token',token,
+    );
+    await sessionStorage.setItem(
+        '@lotus:user',JSON.stringify(userOperator),
+    );
+    return response;
 }
-export const isAuthenticated = async(data) => {
-    try {
-        const token = await localStorage.getItem(
-            '@lotus:doadores',JSON.stringify(data.data.token),
-        );
-        if(token){
-            console.log(': ', token);
-            return true;
-        }
+export const isAuthenticated = async () => {
+    const token = await sessionStorage.getItem('@lotus:token');
+    
+    if(token)
+        return true;
+    else
         return false;
-    } catch (error) {
-        return false;
-    }
 };
-
 export const setDonors = async(data) =>{
     try{
         console.log('Registrando Doador ',data);
@@ -45,7 +35,7 @@ export const setDonors = async(data) =>{
     }
 }
 export const getDonorsList = async()=>{
-    const response = await api.post('/auth/listarDoadores');
+    const response = await api.post('/project/listarDoadores');
     return response.data;
 }
 
