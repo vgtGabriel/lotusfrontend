@@ -4,6 +4,7 @@ import {login,loadAccount} from '../../services/userServices'
 import icon from '../../images/avatar.svg'
 import lock from '../../images/lock.svg'
 import Checkbox from '../checkbox/checkbox'
+import {Redirect} from 'react-router-dom'
 
 import {
     FormGroup,
@@ -18,21 +19,23 @@ class Login extends React.Component {
             email: '',
             password: '',
             submitted: false,
-            alertMessage:null
+            alertMessage:null,
+            loggedIn:false
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     async componentDidMount(){
-        
         this.load();
 
     }
     load = async () =>{
         const load = await loadAccount();
-        if(load)
-            this.props.history.push('/home');
+        if(load){
+            this.props.history.push('/admin');
+
+        }
         else
             this.props.history.push('/');
     }

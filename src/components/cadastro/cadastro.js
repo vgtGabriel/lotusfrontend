@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import CadastroCss from './cadastroStyled';
 import {setDonors} from '../../services/userServices'
+import InputM from 'react-input-mask'
 
 // reactstrap components
 import {
@@ -23,24 +24,26 @@ class Cadastro extends Component {
 
     this.state = {
       doador:{
-        name:'',
+        nomecompleto:'',
         rg:'',
         cpf:'',
-        birth:'',
+        nascimento:'',
         sexo:'',
         email:'',
         telefone:'',
         celular:'',
         whatsapp:'',
-        address:{
-
-        }
-
-      },
-        username: '',
-        password: '',
-        submitted: false,
-        alertMessage:null
+        estado:'',
+        cidade:'',
+        bairro:'',
+        logradouro:'',
+        numero:'',
+        cep:'',
+        referencia:'',
+        complemento:''  ,
+        doadorfixo:'',
+        datadedoacao:'',
+      }
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -49,22 +52,25 @@ class Cadastro extends Component {
 
 handleChange(e) {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    const {doador}  = this.state;
+    doador[name] = value;
+
+    this.setState({doador:doador});
 }
 
 async handleSubmit(e) {
     e.preventDefault();
 
-    this.setState({ submitted: true });
-    const {username} = this.state;
-    await setDonors({username}).then(
-      user =>{
-          console.log(user);
-      },
-      error =>{
-          this.setState({alertMessage:error.data.error});
-      }
-    )
+    const {doador} = this.state;
+    console.log(doador);
+    // await setDonors({username}).then(
+    //   user =>{
+    //       console.log(user);
+    //   },
+    //   error =>{
+    //       this.setState({alertMessage:error.data.error});
+    //   }
+    // )
  
     // if (email && password) {
     //     await createDoador(email,password).then(
@@ -78,7 +84,7 @@ async handleSubmit(e) {
     // };
 }
     render() {
-      const {username} = this.props;
+      const {doador} = this.state;
         return (
             <>
             <CadastroCss/>
@@ -94,10 +100,10 @@ async handleSubmit(e) {
                         <Col className="pr-md-3" md="4">
                           <FormGroup>
                             <label>Nome Completo</label>
-                            <Input
+                            <InputM
                               placeholder="Nome Completo"
                               type="text"
-                              name="username" value={username}
+                              name="nomecompleto" value={doador.nomecompleto}
                               onChange={this.handleChange}
                             // require
                             />
@@ -109,18 +115,20 @@ async handleSubmit(e) {
                             <Input
                               placeholder="0000000000-0"
                               type="text"
+                              name="rg" value={doador.rg}
+                              onChange={this.handleChange}
                             //require
                             />
                           </FormGroup>
                         </Col>
                         <Col className="pl-md-1" md="4">
                           <FormGroup>
-                            <label>
-                              CPF
-                            </label>
+                            <label>CPF</label>
                             <Input
                               placeholder="000.000.000-00"
                               type="text"
+                              name="cpf" value={doador.cpf}
+                              onChange={this.handleChange}
                             // require
                             />
                           </FormGroup>
@@ -132,7 +140,9 @@ async handleSubmit(e) {
                             <label>Data da Nascimento</label>
                             <Input
                               placeholder="00/00/00"
-                              type="text"
+                              type="date"
+                              name="nascimento" value={doador.nascimento}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -141,9 +151,9 @@ async handleSubmit(e) {
                             <label> Sexo:</label>
                             <div className="radio">
                               <Col>
-                                <input type="radio" value="0" name="sexo" id="masculino" />
+                                <input type="radio" value='false' name="sexo" id="masculino" onChange={this.handleChange} />
                                 <label for="masculino">Masculino</label>
-                                <input type="radio" value="1" name="sexo" id="feminino" />
+                                <input type="radio" value='true' name="sexo" id="feminino" onChange={this.handleChange} />
                                 <label for="feminino">Feminino</label>
                               </Col>
                             </div>
@@ -164,6 +174,8 @@ async handleSubmit(e) {
                             <Input
                               placeholder="exemplo@gmail.com"
                               type="email"
+                              name="email" value={doador.email}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -175,6 +187,8 @@ async handleSubmit(e) {
                             <Input
                               placeholder="(00)00000-0000"
                               type="tel"
+                              name="telefone" value={doador.telefone}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -184,6 +198,8 @@ async handleSubmit(e) {
                             <Input
                               placeholder="(00)00000-0000"
                               type="tel"
+                              name="celular" value={doador.celular}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -193,6 +209,8 @@ async handleSubmit(e) {
                             <Input
                               placeholder="(00)00000-0000"
                               type="tel"
+                              name="whatsapp" value={doador.whatsapp}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -211,6 +229,8 @@ async handleSubmit(e) {
                             <Input
                               placeholder="CE"
                               type="text"
+                              name="estado" value={doador.estado}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -220,6 +240,8 @@ async handleSubmit(e) {
                             <Input
                               placeholder="Juazeiro do Norte"
                               type="text"
+                              name="cidade" value={doador.cidade}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -229,6 +251,8 @@ async handleSubmit(e) {
                             <Input
                               placeholder="Bairro"
                               type="text"
+                              name="bairro" value={doador.bairro}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -238,6 +262,8 @@ async handleSubmit(e) {
                             <Input
                               placeholder="Ex: Rua, Av..."
                               type="text"
+                              name="logradouro" value={doador.logradouro}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -247,6 +273,8 @@ async handleSubmit(e) {
                             <Input
                               placeholder="Ex: Rua, Av..."
                               type="text"
+                              name="numero" value={doador.numero}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -256,6 +284,8 @@ async handleSubmit(e) {
                             <Input
                               placeholder="00000-000"
                               type="text"
+                              name="cep" value={doador.cep}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -265,6 +295,8 @@ async handleSubmit(e) {
                             <Input
                               placeholder="Complemento"
                               type="text"
+                              name="complemento" value={doador.complemento}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -274,6 +306,8 @@ async handleSubmit(e) {
                             <Input
                               placeholder="Ponto de Referência"
                               type="text"
+                              name="referencia" value={doador.referencia}
+                              onChange={this.handleChange}
                             />
                           </FormGroup>
                         </Col>
@@ -288,10 +322,23 @@ async handleSubmit(e) {
                         <Row>
                           <Col md='3'>
                             <FormGroup>
-                              <label>Modalidade de Doação</label>
+                              <label>Data de Doação</label>
                               <Input
                                 placeholder="Fixo"
-                                type="text"
+                                type="date"
+                                name="datadedoacao" value={doador.datadedoacao}
+                                onChange={this.handleChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col md='3'>
+                            <FormGroup>
+                              <label>Hora de Doação</label>
+                              <Input
+                                placeholder="Fixo"
+                                type="hour"
+                                name="datadedoacao" value={doador.datadedoacao}
+                                onChange={this.handleChange}
                               />
                             </FormGroup>
                           </Col>
@@ -300,9 +347,11 @@ async handleSubmit(e) {
                               <label> Tornar Doador fixo?:</label>
                               <div className="radio">
                                 <Col>
-                                  <input type="radio" value="0" name="doador" id="radioYes" />
+                                  <input type="radio" value="true" name="doadorfixo" id="radioYes" value={doador.doadorfixo}
+                              onChange={this.handleChange} />
                                   <label for="radioYes">Sim</label>
-                                  <input type="radio" value="1" name="doador" id="radioNo" />
+                                  <input type="radio" value="false" name="doadorfixo" id="radioNo" value={doador.doadorfixo}
+                              onChange={this.handleChange}/>
                                   <label for="radioNo">Não</label>
                                 </Col>
                               </div>

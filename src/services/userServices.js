@@ -1,5 +1,5 @@
 import api from '../services/api';
-import sessionStorage from 'localStorage';
+import store from 'localStorage';
 
 export const login = async (data) =>{
     const {email,password} = data;
@@ -8,17 +8,17 @@ export const login = async (data) =>{
         password:password
     });
     const {token,userOperator} = response.data;
-    await sessionStorage.setItem(
+    await store.setItem(
         '@lotus:token',token,
     );
-    await sessionStorage.setItem(
+    await store.setItem(
         '@lotus:user',JSON.stringify(userOperator),
     );
     return response;
 }
 export const isAuthenticated = async () => {
     
-    const token = await sessionStorage.getItem('@lotus:token');
+    const token = await store.getItem('@lotus:token');
     if(token){
         console.log('true' , token)
         return true;
@@ -43,7 +43,7 @@ export const getDonorsList = async()=>{
 }
 export const loadAccount = async () =>{
     
-    const token = await sessionStorage.getItem('@lotus:token');
+    const token = await store.getItem('@lotus:token');
     if(token){
         console.log('load true', token)
         return true;

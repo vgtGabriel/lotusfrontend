@@ -69,6 +69,11 @@ class MainNavbar extends Component {
       modalSearch: !this.state.modalSearch
     });
   };
+  signOut = async (e) =>{
+    await sessionStorage.removeItem('@lotus:user');
+    await sessionStorage.removeItem('@lotus:token');
+    this.prop.history.push('/');
+  }
   render() {
     return (
       <>
@@ -176,9 +181,6 @@ class MainNavbar extends Component {
                       <img alt="..." src={require("assets/img/anime3.png")} />
                     </div>
                     <b className="caret d-none d-lg-block d-xl-block" />
-                    <p className="d-lg-none">
-                      <Link to='/login'>Log out</Link>
-                    </p>
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li">
@@ -188,7 +190,7 @@ class MainNavbar extends Component {
                       <DropdownItem className="nav-item">Settings</DropdownItem>
                     </NavLink>
                     <DropdownItem divider tag="li" />
-                    <NavLink tag="li">
+                    <NavLink tag="li" onClick={this.signOut}>
                       <DropdownItem className="nav-item">Log out</DropdownItem>
                     </NavLink>
                   </DropdownMenu>

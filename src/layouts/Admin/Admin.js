@@ -21,7 +21,7 @@ class Admin extends Component {
         document.documentElement.className.indexOf("nav-open") !== -1
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
       document.documentElement.className += " perfect-scrollbar-on";
       document.documentElement.classList.remove("perfect-scrollbar-off");
@@ -86,6 +86,7 @@ class Admin extends Component {
     }
     return "Brand";
   };
+
   render() {
     return (
       <>

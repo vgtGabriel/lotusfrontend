@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import { createBrowserHistory } from "history";
-import {BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import {Router, Route, Switch, Redirect } from "react-router-dom";
 import {isAuthenticated} from './services/userServices'
 
 import Layout from './layouts/Admin/Admin'
@@ -23,12 +23,12 @@ const PrivateRoute = ({ render:Render,...rest}) =>(
 class App extends Component{
   render(){
     return(
-      <BrowserRouter history={hist}>
+      <Router history={hist}>
         <Switch>
           <Route exact path="/" render={props => <Login {...props} />} />
           <PrivateRoute path="/admin" render={props => <Layout {...props} />} />
         </Switch>
-      </BrowserRouter>
+      </Router>
     )
   }
 }
