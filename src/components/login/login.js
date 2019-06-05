@@ -4,7 +4,6 @@ import {login,loadAccount} from '../../services/userServices'
 import icon from '../../images/avatar.svg'
 import lock from '../../images/lock.svg'
 import Checkbox from '../checkbox/checkbox'
-import {Redirect} from 'react-router-dom'
 
 import {
     FormGroup,
@@ -33,7 +32,7 @@ class Login extends React.Component {
     load = async () =>{
         const load = await loadAccount();
         if(load){
-            this.props.history.push('/admin');
+            this.props.history.push('/admin/home');
 
         }
         else
@@ -53,7 +52,7 @@ class Login extends React.Component {
             this.setState({ submitted: true });
             login({email,password}).then(
                 user =>{
-                    this.props.history.push('/admin');
+                    this.props.history.push('/admin/home');
                 },
                 error =>{
                     this.setState({alertMessage:error.data.error});
@@ -76,7 +75,7 @@ class Login extends React.Component {
                 <Form name="form" onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <InputBorder>
-                            <i className='av'><img src={icon}/></i>
+                            <i className='av'><img alt='email' src={icon}/></i>
                             <InputsLogin type="text" placeholder="EMAIL" name="email" value={email} onChange={this.handleChange} />
                         </InputBorder>
                         {submitted && !email &&  
@@ -92,8 +91,8 @@ class Login extends React.Component {
                      
                     <br/>
                     <InputBorder>
-                        <i className='av'><img  src={lock}/></i>
-                        <InputsLogin type="password" placeholder="PASSWORD"  name="password" value={password} onChange={this.handleChange} />
+                        <i className='av'><img  alt='senha' src={lock}/></i>
+                        <InputsLogin type="password" placeholder="SENHA"  name="password" value={password} onChange={this.handleChange} />
                     </InputBorder>
                     {submitted && !password &&
                         <div>
@@ -106,7 +105,7 @@ class Login extends React.Component {
                     {/* div className = help-block avisa caso o usuario não tenha preencido o password*/}
                     <br/>
                         <BtnLogin className='btnLogin btn-success'>LOGIN</BtnLogin>
-                        {loggingIn && <img src="#" />}
+                        {loggingIn && <img src="#" alt='carregando'/>}
                         {/* img é para colocar algum gif de carregando */}
                         <br/>
                         <Checkbox/>

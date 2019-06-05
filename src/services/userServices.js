@@ -29,13 +29,10 @@ export const isAuthenticated = async () => {
     }
 };
 export const setDonors = async(data) =>{
-    try{
-        console.log('Registrando Doador ',data);
-        const response = await api.post('/auth/registrarDoador',data);
-        return response.data;
-    }catch(error){
-        return {error:"Não foi possivel completar o registro"}
-    }
+    console.log('Registrando Doador ',data);
+    const response = await api.post('/auth/registrarDoador',data);
+    console.log('resposa:', response.data);
+    // return response
 }
 export const getDonorsList = async()=>{
     const response = await api.post('/auth/listarDoadores');

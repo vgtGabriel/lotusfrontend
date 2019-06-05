@@ -8,9 +8,7 @@ import {
     Input,
     FormGroup,
 } from 'reactstrap';
-import DonorsList from './ListaDoadores'
 import {getDonorsList} from '../../services/userServices'
-import socket from 'socket.io-client'
 import Donor from './donor'
 
 class ToListDonors extends Component {
@@ -49,6 +47,28 @@ class ToListDonors extends Component {
             // });
         };
         
+handleChange(e) {
+    // const { name, value } = e.target;
+    // const {doador}  = this.state;
+    // doador[name] = value;
+
+    // this.setState({doador:doador});
+}
+
+async handleSubmit(e) {
+    e.preventDefault();
+
+    const {doador} = this.state;
+    console.log('doador:', doador);
+    // await setDonors(doador).then(
+    //   user =>{
+    //       console.log(user);
+    //   },
+    //   error =>{
+    //       this.setState({alertMessage:error.data.error});
+    //   }
+    // )
+}
         render() {
         return ( 
             <>
@@ -82,14 +102,14 @@ class ToListDonors extends Component {
                                 <h4>Data de Doação</h4>
                             </Col>
                             <Col md='3'>
-                                <h4>Midias Sociais</h4>
+                                <h4>Status</h4>
                             </Col>
                         </Row>
-                        {this.state.donorerList.map(donor =>(
-                            <Donor key ={donor.id} donor = {donor} />
-                        ))}
                     </CardBody>
                 </Card>
+                {this.state.donorerList.map(doador =>(
+                            <Donor key ={doador._id} doador = {doador} />
+                        ))}
                </div>
             </>
         );

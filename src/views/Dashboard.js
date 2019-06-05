@@ -13,7 +13,6 @@ import {
 
 // core components
 import {
-  chartExample1,
   chartExample2,
   chartExample3,
   chartExample4

@@ -1,7 +1,6 @@
 import React,{Component} from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-import {Link} from 'react-router-dom'
 
 // reactstrap components
 import {
