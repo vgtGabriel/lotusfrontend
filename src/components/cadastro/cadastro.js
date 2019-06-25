@@ -2,8 +2,6 @@ import React,{Component} from "react";
 import CadastroCss from './cadastroStyled';
 import {setDonors} from '../../services/userServices'
 import InputM from 'react-input-mask'
-
-// reactstrap components
 import {
   Button,
   Card,
@@ -29,20 +27,34 @@ class Cadastro extends Component {
         cpf:'',
         nascimento:'',
         sexo:'',
-        email:'',
-        telefone:'',
-        celular:'',
-        whatsapp:'',
-        estado:'',
-        cidade:'',
-        bairro:'',
-        logradouro:'',
-        numero:'',
-        cep:'',
-        referencia:'',
-        complemento:''  ,
-        doadorfixo:'',
-        datadedoacao:''
+        contato:{
+          email:'',
+          telefone:'',
+          celular:'',
+          whatsapp:'',
+        },
+        endereco:{
+          estado:'',
+          cidade:'',
+          bairro:'',
+          logradouro:'',
+          numero:'',
+          cep:'',
+          referencia:'',
+          complemento:'',
+          mapPosition: {
+            lat:'',
+            lng:''
+          },
+          markerPosition: {
+            lat:'',
+            lng:''
+          }
+        },
+        doador:{
+          doadorfixo:'',
+          datadedoacao:''
+        }
       }
     };
 
@@ -324,13 +336,12 @@ async handleSubmit(e) {
                           <Col md='3'>
                             <FormGroup>
                               <label>Data de Doação</label>
-                              <InputM
+                              <Input
                                 className="form-control"
                                 placeholder="dd/mm/aaaa"
-                                type="text"
+                                type="day"
                                 name="datadedoacao" value={doador.datadedoacao}
                                 onChange={this.handleChange}
-                                mask="99/99/9999 99:99"
                               />
                             </FormGroup>
                           </Col>

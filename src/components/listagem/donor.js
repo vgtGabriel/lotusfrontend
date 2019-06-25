@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import Style,{Normal} from './style'
+import Style from './style'
 import {
     Card,
     CardBody,
@@ -25,11 +25,10 @@ class Donor extends Component{
             on:!this.state.on
         })
     }
-    getDate = (date) =>{
-        if(date){
-
-            date = String(date).split(' ');
-            var date = String(date[0]).split('-');
+    getDate = (data) =>{
+        if(data){
+            data = String(data).split(' ');
+            let date = String(data[0]).split('-');
             return [parseInt(date[2]),' - ',parseInt(date[1]),' - ',parseInt(date[0])];
         }else{
             return 'NaN'
@@ -316,7 +315,7 @@ class Donor extends Component{
                                 className="form-control"
                                 placeholder="dd/mm/aaaa"
                                 type="text"
-                                name="datadedoacao" value={doador.datadedoacao}
+                                name="datadedoacao" value={this.getDate(doador.datadedoacao)}
                                 onChange={this.handleChange}
                                 mask="99/99/9999 99:99"
                               />

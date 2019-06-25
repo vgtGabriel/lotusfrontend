@@ -1,271 +1,60 @@
 import React from "react";
-// react plugin used to create google maps
+import MapStyle from '../components/Map/MapStyle'
 import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
+  Marker,
+  // InfoWindow
 } from "react-google-maps";
-
-// reactstrap components
-import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Row,
+  Col,
+   
+} from "reactstrap";
 
 const MapWrapper = withScriptjs(
+
   withGoogleMap(props => (
     <GoogleMap
-      defaultZoom={13}
-      defaultCenter={{ lat: 40.748817, lng: -73.985428 }}
+      defaultZoom={15}
+      defaultCenter={{ lat: -7.2288819, lng:-39.3276822 }}
       defaultOptions={{
         scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
-        styles: [
-          {
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#1d2c4d"
-              }
-            ]
-          },
-          {
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#8ec3b9"
-              }
-            ]
-          },
-          {
-            elementType: "labels.text.stroke",
-            stylers: [
-              {
-                color: "#1a3646"
-              }
-            ]
-          },
-          {
-            featureType: "administrative.country",
-            elementType: "geometry.stroke",
-            stylers: [
-              {
-                color: "#4b6878"
-              }
-            ]
-          },
-          {
-            featureType: "administrative.land_parcel",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#64779e"
-              }
-            ]
-          },
-          {
-            featureType: "administrative.province",
-            elementType: "geometry.stroke",
-            stylers: [
-              {
-                color: "#4b6878"
-              }
-            ]
-          },
-          {
-            featureType: "landscape.man_made",
-            elementType: "geometry.stroke",
-            stylers: [
-              {
-                color: "#334e87"
-              }
-            ]
-          },
-          {
-            featureType: "landscape.natural",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#023e58"
-              }
-            ]
-          },
-          {
-            featureType: "poi",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#283d6a"
-              }
-            ]
-          },
-          {
-            featureType: "poi",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#6f9ba5"
-              }
-            ]
-          },
-          {
-            featureType: "poi",
-            elementType: "labels.text.stroke",
-            stylers: [
-              {
-                color: "#1d2c4d"
-              }
-            ]
-          },
-          {
-            featureType: "poi.park",
-            elementType: "geometry.fill",
-            stylers: [
-              {
-                color: "#023e58"
-              }
-            ]
-          },
-          {
-            featureType: "poi.park",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#3C7680"
-              }
-            ]
-          },
-          {
-            featureType: "road",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#304a7d"
-              }
-            ]
-          },
-          {
-            featureType: "road",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#98a5be"
-              }
-            ]
-          },
-          {
-            featureType: "road",
-            elementType: "labels.text.stroke",
-            stylers: [
-              {
-                color: "#1d2c4d"
-              }
-            ]
-          },
-          {
-            featureType: "road.highway",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#2c6675"
-              }
-            ]
-          },
-          {
-            featureType: "road.highway",
-            elementType: "geometry.fill",
-            stylers: [
-              {
-                color: "#9d2a80"
-              }
-            ]
-          },
-          {
-            featureType: "road.highway",
-            elementType: "geometry.stroke",
-            stylers: [
-              {
-                color: "#9d2a80"
-              }
-            ]
-          },
-          {
-            featureType: "road.highway",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#b0d5ce"
-              }
-            ]
-          },
-          {
-            featureType: "road.highway",
-            elementType: "labels.text.stroke",
-            stylers: [
-              {
-                color: "#023e58"
-              }
-            ]
-          },
-          {
-            featureType: "transit",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#98a5be"
-              }
-            ]
-          },
-          {
-            featureType: "transit",
-            elementType: "labels.text.stroke",
-            stylers: [
-              {
-                color: "#1d2c4d"
-              }
-            ]
-          },
-          {
-            featureType: "transit.line",
-            elementType: "geometry.fill",
-            stylers: [
-              {
-                color: "#283d6a"
-              }
-            ]
-          },
-          {
-            featureType: "transit.station",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#3a4762"
-              }
-            ]
-          },
-          {
-            featureType: "water",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#0e1626"
-              }
-            ]
-          },
-          {
-            featureType: "water",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#4e6d70"
-              }
-            ]
-          }
-        ]
+        styles:MapStyle 
       }}
     >
-      {/* <Marker position={{ lat: 40.748817, lng: -73.985428 }} /> */}
+      {props.maptest.map((park)=>(
+        <Marker key={park.id} position={{lat:park.coordinates[0],lng:park.coordinates[1]}}/>
+      ))}
     </GoogleMap>
   ))
 );
 
 class Map extends React.Component {
+constructor(props){
+  super(props)
+
+  this.state ={
+    maptest :[
+      {
+        id:"123",
+        coordinates:[-7.2288819, -39.3276822]
+      },
+      {
+        id:"124",
+        coordinates:[-7.2288819, -39.3276826]
+      },
+      {
+        id:"125",
+        coordinates:[-7.2288820, -39.3276822]
+      }
+    ]
+  }
+}
   render() {
     return (
       <>
@@ -281,13 +70,19 @@ class Map extends React.Component {
                     style={{ position: "relative", overflow: "hidden" }}
                   >
                     <MapWrapper
-                      googleMapURL="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"
+                      // googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_6riTzFoNuW4f2-PDrVG15MxOb8GNVaI&libraries=places&callback=initialize"
+                      googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXJ-ZZenPq8V2gotfJd0BKRVhVBHSV16w&libraries=places&callback=initialize"
+                     
                       loadingElement={<div style={{ height: `100%` }} />}
                       containerElement={<div style={{ height: `100%` }} />}
                       mapElement={<div style={{ height: `100%` }} />}
+                      maptest = {this.state.maptest}
                     />
                   </div>
                 </CardBody>
+                <Row>
+
+                </Row>
               </Card>
             </Col>
           </Row>

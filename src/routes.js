@@ -1,5 +1,5 @@
 import Dashboard from "views/Dashboard.js";
-import Map from "views/Map.js";
+import Map from "views/Map";
 import Cadastro from './components/cadastro/cadastro'
 import Listar from './components/listagem/lista'
 

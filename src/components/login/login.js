@@ -55,7 +55,7 @@ class Login extends React.Component {
                     this.props.history.push('/admin/home');
                 },
                 error =>{
-                    this.setState({alertMessage:error.data.error});
+                    this.setState({alertMessage:error.data});
                 }
             )
     
