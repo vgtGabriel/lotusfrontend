@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import Calender from 'react-calendar'
 import Style from './style'
 import {
     Card,
@@ -35,22 +36,23 @@ class Donor extends Component{
         }
     }
     render(){
-        const {doador} = this.props;
+        const {donor} = this.props;
+        const id = donor.id;
+        console.log('proptes', id);
         return(
             <>
             <Style/>
                 <Card>
                     <CardHeader onClick={this.toggle}>
-                    <Row id="arroz">
+                    <Row id='arroz'>
                         <Col md='4'>
-                            <h4>{doador.nomecompleto}</h4>
+                            <h4>{donor.nome_completo}</h4>
                         </Col>
                         <Col md='4'>
-                            <h4>{this.getDate(doador.datadedoacao)}</h4>
+                            <h4>{this.getDate(donor.next_donation)}</h4>
                         </Col>
                         <Col md='4'>
-                            
-                            <h4 className = {doador.status}>{doador.status}</h4>
+                            {/* <h4 className = {donor.status}>{donor.status}</h4> */}
                         </Col>
                         <Col md1='1'>
                         
@@ -58,7 +60,7 @@ class Donor extends Component{
                         </Row>
                             <UncontrolledTooltip
                               delay={0}
-                              target="arroz"
+                              target='arroz'
                               placement="right"
                             >
                               Clique Para Editar
@@ -79,7 +81,7 @@ class Donor extends Component{
                             <Input
                               placeholder="Nome Completo"
                               type="text"
-                              name="nomecompleto" value={doador.nomecompleto}
+                              name="nomecompleto" value={donor.nome_completo}
                               onChange={this.handleChange}
                               mask="+4\9 99 999 99"
                             // require
@@ -92,7 +94,7 @@ class Donor extends Component{
                             <InputM className='form-control'
                               placeholder="0000000000-0"
                               type="text"
-                              name="rg" value={doador.rg}
+                              name="rg" value={donor.rg}
                               onChange={this.handleChange}
                               mask="9999999999-*"
                             //require
@@ -105,7 +107,7 @@ class Donor extends Component{
                             <InputM className='form-control'
                               placeholder="000.000.000-00"
                               type="text"
-                              name="cpf" value={doador.cpf}
+                              name="cpf" value={donor.cpf}
                               onChange={this.handleChange}
                               mask ="999.999.999-**"
                             // require
@@ -120,23 +122,10 @@ class Donor extends Component{
                             <InputM className ='form-control'
                               placeholder="dd/mm/aaaa"
                               type="text"
-                              name="nascimento" value={doador.nascimento}
+                              name="nascimento" value={donor.nascimento}
                               onChange={this.handleChange}
                               mask ='99/99/9999'
                             />
-                          </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1 " md="6">
-                          <FormGroup>
-                            <label> Sexo:</label>
-                            <div className="radio">
-                              <Col>
-                                <input type="radio" value='false' name="sexo" id="masculino" onChange={this.handleChange} />
-                                <label htmlFor="masculino">Masculino</label>
-                                <input type="radio" value='true' name="sexo" id="feminino" onChange={this.handleChange} />
-                                <label htmlFor="feminino">Feminino</label>
-                              </Col>
-                            </div>
                           </FormGroup>
                         </Col>
                       </Row>
@@ -154,7 +143,7 @@ class Donor extends Component{
                             <Input
                               placeholder="exemplo@gmail.com"
                               type="email"
-                              name="email" value={doador.email}
+                              name="email" value={donor.email}
                               onChange={this.handleChange}
                             />
                           </FormGroup>
@@ -168,33 +157,7 @@ class Donor extends Component{
                               className='form-control'
                               placeholder="(00)00000-0000"
                               type="tel"
-                              name="telefone" value={doador.telefone}
-                              onChange={this.handleChange}
-                              mask ='(99) 99999-9999'
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col className="px-md-1" md="4">
-                          <FormGroup>
-                            <label>Celular</label>
-                            <InputM 
-                              className='form-control'
-                              placeholder="(00)00000-0000"
-                              type="tel"
-                              name="celular" value={doador.celular}
-                              onChange={this.handleChange}
-                              mask ='(99) 99999-9999'
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="4">
-                          <FormGroup>
-                            <label>Whatsapp</label>
-                            <InputM 
-                              className='form-control'
-                              placeholder="(00)00000-0000"
-                              type="tel"
-                              name="whatsapp" value={doador.whatsapp}
+                              name="telefone" value={donor.telefone}
                               onChange={this.handleChange}
                               mask ='(99) 99999-9999'
                             />
@@ -215,7 +178,7 @@ class Donor extends Component{
                             <Input
                               placeholder="CE"
                               type="text"
-                              name="estado" value={doador.estado}
+                              name="estado" value={donor.address[0].state}
                               onChange={this.handleChange}
                             />
                           </FormGroup>
@@ -226,7 +189,7 @@ class Donor extends Component{
                             <Input
                               placeholder="Juazeiro do Norte"
                               type="text"
-                              name="cidade" value={doador.cidade}
+                              name="cidade" value={donor.address[0].city}
                               onChange={this.handleChange}
                             />
                           </FormGroup>
@@ -237,7 +200,7 @@ class Donor extends Component{
                             <Input
                               placeholder="Bairro"
                               type="text"
-                              name="bairro" value={doador.bairro}
+                              name="district" value={donor.address[0].district}
                               onChange={this.handleChange}
                             />
                           </FormGroup>
@@ -248,7 +211,7 @@ class Donor extends Component{
                             <Input
                               placeholder="Ex: Rua, Av..."
                               type="text"
-                              name="logradouro" value={doador.logradouro}
+                              name="street" value={donor.address[0].street}
                               onChange={this.handleChange}
                             />
                           </FormGroup>
@@ -259,8 +222,7 @@ class Donor extends Component{
                             <Input
                               placeholder="Ex: Rua, Av..."
                               type="text"
-                              name="numero" value={doador.numero}
-                              onChange={this.handleChange}
+                              name="number" value={donor.address[0].number}
                             />
                           </FormGroup>
                         </Col>
@@ -271,7 +233,7 @@ class Donor extends Component{
                               className='form-control'
                               placeholder="00000-000"
                               type="text"
-                              name="cep" value={doador.cep}
+                              name="cep" value={donor.address[0].zip_code}
                               onChange={this.handleChange}
                               mask= "99999-999"
                             />
@@ -283,7 +245,7 @@ class Donor extends Component{
                             <Input
                               placeholder="Complemento"
                               type="text"
-                              name="complemento" value={doador.complemento}
+                              name="complemento" value={donor.address[0].complement}
                               onChange={this.handleChange}
                             />
                           </FormGroup>
@@ -294,7 +256,7 @@ class Donor extends Component{
                             <Input
                               placeholder="Ponto de Referência"
                               type="text"
-                              name="referencia" value={doador.referencia}
+                              name="referencia" value={donor.address[0].reference}
                               onChange={this.handleChange}
                             />
                           </FormGroup>
@@ -311,27 +273,14 @@ class Donor extends Component{
                           <Col md='3'>
                             <FormGroup>
                               <label>Data de Doação</label>
-                              <InputM
+                              <Input
                                 className="form-control"
                                 placeholder="dd/mm/aaaa"
                                 type="text"
-                                name="datadedoacao" value={this.getDate(doador.datadedoacao)}
+                                name="donated_at" value={this.getDate(donor.donated_at)}
                                 onChange={this.handleChange}
-                                mask="99/99/9999 99:99"
                               />
-                            </FormGroup>
-                          </Col>
-                          <Col md='4'>
-                            <FormGroup>
-                              <label> Tornar Doador fixo?:</label>
-                              <div className="radio">
-                                <Col>
-                                  <input type="radio" value="true" name="doadorfixo" id="radioYes" onChange={this.handleChange} />
-                                  <label htmlFor="radioYes">Sim</label>
-                                  <input type="radio" value="false" name="doadorfixo" id="radioNo" onChange={this.handleChange}/>
-                                  <label htmlFor="radioNo">Não</label>
-                                </Col>
-                              </div>
+                              <Calender/>
                             </FormGroup>
                           </Col>
                         </Row>

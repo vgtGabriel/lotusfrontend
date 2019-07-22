@@ -20,7 +20,6 @@ class ToListDonors extends Component {
         }
     }
     async componentDidMount(){
-        this.subscribeToEvents();
         await getDonorsList().then(
             response=>{
                 this.setState({donorerList:response},()=>{
@@ -33,42 +32,6 @@ class ToListDonors extends Component {
             }
             )
         }
-        subscribeToEvents = () =>{
-            // const socket = socket('http://localhost:3000');
-            // socket.on('test',data =>{
-            //     this.setState({list:[data, ...this.state.list]})
-            // });
-            // socket.on('donorsUpdate', data =>{
-            //     this.setState({
-            //         list: this.state.list.map(
-            //             donor => (donor._id === data._id ? data : donor)
-            //         )
-            //     });
-            // });
-        };
-        
-handleChange(e) {
-    // const { name, value } = e.target;
-    // const {doador}  = this.state;
-    // doador[name] = value;
-
-    // this.setState({doador:doador});
-}
-
-async handleSubmit(e) {
-    e.preventDefault();
-
-    const {doador} = this.state;
-    console.log('doador:', doador);
-    // await setDonors(doador).then(
-    //   user =>{
-    //       console.log(user);
-    //   },
-    //   error =>{
-    //       this.setState({alertMessage:error.data.error});
-    //   }
-    // )
-}
         render() {
         return ( 
             <>
@@ -108,7 +71,7 @@ async handleSubmit(e) {
                     </CardBody>
                 </Card>
                 {this.state.donorerList.map(doador =>(
-                            <Donor key ={doador._id} doador = {doador} />
+                            <Donor key ={doador.id} donor = {doador} />
                         ))}
                </div>
             </>
