@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch , Redirect} from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
 
 import MainNavbar from "../../components/Navbars/MainNavbar";
@@ -15,9 +15,11 @@ class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loggedIn: false,
       backgroundColor: "blue",
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1
+    
     };
   }
   async componentDidMount() {
@@ -32,6 +34,12 @@ class Admin extends Component {
     }
   }
   componentWillUnmount() {
+    if(sessionStorage.getItem('@lotus:user')){
+      console.log();
+    }
+    else{
+      this.state.setState({loggedIn:true})
+    }
     if (navigator.platform.indexOf("Win") > -1) {
       ps.destroy();
       document.documentElement.className += " perfect-scrollbar-off";
@@ -87,6 +95,12 @@ class Admin extends Component {
   };
 
   render() {
+
+    if(this.state.loggedIn){
+      return (
+          <Redirect to={'/login'}/>
+      )
+    }
     return (
       <>
         <div className="wrapper">
@@ -112,7 +126,7 @@ class Admin extends Component {
               sidebarOpened={this.state.sidebarOpened}
             />
             <Switch>{this.getRoutes(routes)}</Switch>
-            {/* <Redirect from="/admin" to="/admin/home"/> */}
+            <Redirect from="/admin" to="/admin/home"/>
             {this.props.location.pathname.indexOf("maps") !== -1 ? null : (
               <Footer fluid />
             )}

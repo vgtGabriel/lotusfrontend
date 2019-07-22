@@ -3,16 +3,12 @@ import store from 'localStorage';
 
 export const login = async (data) =>{
     const {email,password} = data;
-    const response = await api.post('/auth/authenticate',{
+    const response = await api.post('/auth',{
         email:email,
         password:password
     });
-    const {token,userOperator} = response.data;
-    await store.setItem(
-        '@lotus:token',token,
-    );
-    await store.setItem(
-        '@lotus:user',JSON.stringify(userOperator),
+    await sessionStorage.setItem(
+        '@lotus:user',response.data,
     );
     return response;
 }

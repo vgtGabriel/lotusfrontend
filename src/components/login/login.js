@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginCss,{BtnLogin,LoginContent,InputsLogin,InputBorder} from './loginStyled';
+import {Redirect} from 'react-router-dom'
 import {login,loadAccount} from '../../services/userServices'
 import icon from '../../images/avatar.svg'
 import lock from '../../images/lock.svg'
@@ -26,43 +27,52 @@ class Login extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     async componentDidMount(){
-        this.load();
-
+        // this.load();
     }
-    load = async () =>{
-        const load = await loadAccount();
-        if(load){
-            this.props.history.push('/admin/home');
-
-        }
-        else
-            this.props.history.push('/');
-    }
+    // load = async () =>{
+    //     const load = await loadAccount();
+    //     if(load){
+    //         this.props.history.push('/admin/home');
+    //     }
+    //     else
+    //         this.props.history.push('/');
+    // }
     handleChange = e => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
 
     handleSubmit = e => {
-        e.preventDefault();
-
-        const { email, password } = this.state;
-        if (!(email && password)) return;
-
-            this.setState({ submitted: true });
-            login({email,password}).then(
-                user =>{
-                    this.props.history.push('/admin/home');
-                },
-                error =>{
-                    this.setState({alertMessage:error.data});
-                }
-            )
-    
+        e.preventDefault()
+        const { email, password } = this.state
+        if (!(email && password))
+            return
+        this.setState({ submitted: true })
+        login({email,password}).then(
+            user =>{
+                this.setState({loggedIn : true})
+                // this.props.history.push('/admin/home')
+            },
+            error =>{
+                this.setState({loggedIn : false})
+                this.setState({alertMessage:error.data})
+            }
+        )
     }
     render() {
-        const { loggingIn } = this.props;
-        const { email, password, submitted} = this.state;
+        const {loggingIn} = this.props
+        const { email, password, submitted} = this.state
+
+        if(this.state.loggedIn){
+            return (
+                <Redirect to={'/admin'}/>
+            )
+        }
+        if(sessionStorage.getItem('@lotus:user')){
+            return (
+                <Redirect to={'/admin'}/>
+            )
+        }
         return (
             <>
             <div className = "wrapper">

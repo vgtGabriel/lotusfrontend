@@ -15,7 +15,7 @@ const PrivateRoute = ({ render:Render,...rest}) =>(
     isAuthenticated() ? (
       <Render {...props}/>
     ) : (
-      <Redirect to = {{pathname: "/", state: {from:props.location}}}/>
+      <Redirect to = {{pathname: "/login", state: {from:props.location}}}/>
     )
     }
   />
@@ -25,8 +25,9 @@ class App extends Component{
     return(
       <Router history={hist}>
         <Switch>
-          <Route exact path="/" render={props => <Login {...props} />} />
+          <Route exact path="/login" render={props => <Login {...props} />} />
           <PrivateRoute path="/admin" render={props => <Layout {...props} />} />
+          <Redirect from="/" to="/login"/>
         </Switch>
       </Router>
     )
