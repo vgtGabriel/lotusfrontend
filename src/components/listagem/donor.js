@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
-import Calender from 'react-calendar'
 import Style from './style'
+import {isSameDay,isPast} from 'date-fns'
 import {
     Card,
     CardBody,
@@ -35,6 +35,18 @@ class Donor extends Component{
             return 'NaN'
         }
     }
+    getStatus = (data) =>{
+      if(isSameDay(new Date(),data)){
+        return 'hoje'
+      }
+      else if(isPast(new Date(),data)){
+        return 'pendente'
+      }
+      else{
+        return 'normal'
+      }
+
+    }
     render(){
         const {donor} = this.props;
         const id = donor.id;
@@ -52,7 +64,7 @@ class Donor extends Component{
                             <h4>{this.getDate(donor.next_donation)}</h4>
                         </Col>
                         <Col md='4'>
-                            {/* <h4 className = {donor.status}>{donor.status}</h4> */}
+                            <h4 className = {this.getStatus(donor.next_donation)}>{this.getStatus(donor.next_donation)}</h4>
                         </Col>
                         <Col md1='1'>
                         
@@ -119,12 +131,11 @@ class Donor extends Component{
                         <Col className="pr-md-1" md="2">
                           <FormGroup>
                             <label>Data da Nascimento</label>
-                            <InputM className ='form-control'
-                              placeholder="dd/mm/aaaa"
-                              type="text"
-                              name="nascimento" value={donor.nascimento}
+                            <Input
+                              type="date"
+                              name="nascimento"
+                              value={new Date(donor.nascimento)}
                               onChange={this.handleChange}
-                              mask ='99/99/9999'
                             />
                           </FormGroup>
                         </Col>
@@ -274,13 +285,9 @@ class Donor extends Component{
                             <FormGroup>
                               <label>Data de Doação</label>
                               <Input
-                                className="form-control"
-                                placeholder="dd/mm/aaaa"
-                                type="text"
-                                name="donated_at" value={this.getDate(donor.donated_at)}
-                                onChange={this.handleChange}
+                                type="date"
+                                value = {new Date(donor.donated_at)}
                               />
-                              <Calender/>
                             </FormGroup>
                           </Col>
                         </Row>

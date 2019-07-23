@@ -26,7 +26,7 @@ class Cadastro extends Component {
         nome_completo:'',
         rg:'',
         cpf:'',
-        nascimento:'',
+        nascimento: new Date(),
         email:'',
         telefone:'',
         street:'',
@@ -37,7 +37,7 @@ class Cadastro extends Component {
         city:'',
         reference:'',
         complement:'',
-        donated_at:''
+        donated_at: new Date()
       }
     };
 
@@ -57,14 +57,20 @@ async handleSubmit(e) {
 
     const {donor} = this.state;
     console.log('doador:', donor);
-    await setDonors(donor).then(
-      user =>{
+    if(donor.nome_completo && donor.rg && donor.cpf && donor.email){
+
+      await setDonors(donor).then(
+        user =>{
           console.log('aqui', user);
-      },
-      error =>{
+        },
+        error =>{
           this.setState({alertMessage:error.data.error});
-      }
-    )
+        }
+      )
+    }
+    else{
+      console.log('campos obrigatorios')
+    }
 }
     render() {
       const {donor} = this.state;
@@ -89,7 +95,7 @@ async handleSubmit(e) {
                               name="nome_completo" value={donor.nome_completo}
                               onChange={this.handleChange}
                               mask="+4\9 99 999 99"
-                            // require
+                              require
                             />
                           </FormGroup>
                         </Col>
@@ -102,7 +108,7 @@ async handleSubmit(e) {
                               name="rg" value={donor.rg}
                               onChange={this.handleChange}
                               mask="9999999999-*"
-                            //require
+                              require
                             />
                           </FormGroup>
                         </Col>
@@ -115,7 +121,7 @@ async handleSubmit(e) {
                               name="cpf" value={donor.cpf}
                               onChange={this.handleChange}
                               mask ="999.999.999-**"
-                            // require
+                              require
                             />
                           </FormGroup>
                         </Col>
@@ -124,12 +130,11 @@ async handleSubmit(e) {
                         <Col className="pr-md-1" md="2">
                           <FormGroup>
                             <label>Data da Nascimento</label>
-                            <InputM className ='form-control'
+                            <Input
                               placeholder="dd/mm/aaaa"
-                              type="text"
+                              type="date"
                               name="nascimento" value={donor.nascimento}
                               onChange={this.handleChange}
-                              mask ='99/99/9999'
                             />
                           </FormGroup>
                         </Col>
@@ -150,6 +155,7 @@ async handleSubmit(e) {
                               type="email"
                               name="email" value={donor.email}
                               onChange={this.handleChange}
+                              require
                             />
                           </FormGroup>
                         </Col>
@@ -287,7 +293,9 @@ async handleSubmit(e) {
                                 
                                 
                               /> */}
-                              <Calendar
+                              <Input
+                                placeholder="dd/mm/aaaa"
+                                type="date"
                                 name="donated_at"
                                 value={donor.donated_at} 
                                 onChange={this.handleChange}/>

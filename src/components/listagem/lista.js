@@ -25,14 +25,13 @@ class ToListDonors extends Component {
                 this.setState({donorerList:response},()=>{
                     console.log('lista:', this.state.donorerList)
                 })
-                //console.log('aqui:', response.data.username);
             },
             error=>{
                 console.log('error')
             }
-            )
-        }
-        render() {
+        )
+    }
+    render() {
         return ( 
             <>
                <div className="content">
@@ -47,8 +46,8 @@ class ToListDonors extends Component {
                         <FormGroup>
                           <label>Pesquisar</label>
                           <Input
-                            placeholder="Nome Completo"
-                            type="text"
+                                placeholder="Nome Completo"
+                                type="text"
                             />
                         </FormGroup>
                       </Col>
@@ -70,8 +69,8 @@ class ToListDonors extends Component {
                         </Row>
                     </CardBody>
                 </Card>
-                {this.state.donorerList.map(doador =>(
-                            <Donor key ={doador.id} donor = {doador} />
+                {this.state.donorerList.map(thisDonor =>(
+                            <Donor key ={thisDonor.id} donor = {thisDonor} />
                         ))}
                </div>
             </>

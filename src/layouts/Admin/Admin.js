@@ -34,10 +34,7 @@ class Admin extends Component {
     }
   }
   componentWillUnmount() {
-    if(sessionStorage.getItem('@lotus:user')){
-      console.log();
-    }
-    else{
+    if(!sessionStorage.getItem('@lotus:user')){
       this.state.setState({loggedIn:true})
     }
     if (navigator.platform.indexOf("Win") > -1) {
