@@ -63,7 +63,7 @@ class Login extends React.Component {
         const {loggingIn} = this.props
         const { email, password, submitted} = this.state
 
-        if(this.state.loggedIn){
+        if(this.state.loggedIn===true){
             return (
                 <Redirect to={'/admin'}/>
             )

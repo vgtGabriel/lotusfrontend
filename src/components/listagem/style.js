@@ -40,8 +40,11 @@ export default createGlobalStyle`
     .normal{
         color:#00f2c3;
     }
-    .pendent{
+    .pendente{
         color:#fd5d93;
+    }.
+    hoje{
+        color:blue;
     }
    
 

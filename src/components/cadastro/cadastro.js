@@ -1,8 +1,8 @@
 import React,{Component} from "react";
-import Calendar from 'react-calendar';
 import CadastroCss from './cadastroStyled';
 import {setDonors} from '../../services/userServices'
 import InputM from 'react-input-mask'
+import ModalC from '../Modal/Modal'
 import {
   Button,
   Card,
@@ -13,14 +13,13 @@ import {
   Form,
   Input,
   Row,
-  Col
+  Col,
+  ButtonToolbar
 } from "reactstrap";
 
 class Cadastro extends Component {
-
   constructor(props) {
     super(props);
-
     this.state = {
       donor:{
         nome_completo:'',
@@ -40,54 +39,51 @@ class Cadastro extends Component {
         donated_at: new Date()
       }
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-}
+  }
 
-handleChange(e) {
+  handleChange(e) {
     const { name, value } = e.target;
     const {donor}  = this.state;
     donor[name] = value;
-
     this.setState({donor});
-}
-async handleSubmit(e) {
-    e.preventDefault();
+  }
+  async handleSubmit(e) {
+    e.preventDefault()
 
+    // const {donor} = this.state;
+    // console.log('doador:', donor);
+    //   await setDonors(donor).then(
+    //     user =>{
+    //       this.setState({alertMessage:'Doador Cadastrado com sucesso'});
+    //       this.setState({modalShow:true})
+    //       console.log('aqui', user);
+    //     },
+    //     error =>{
+    //       this.setState({alertMessage:error.data.error});
+    //       this.setState({modalShow:true})
+    //     }
+    //   )
+  } 
+  render() {
     const {donor} = this.state;
-    console.log('doador:', donor);
-    if(donor.nome_completo && donor.rg && donor.cpf && donor.email){
-
-      await setDonors(donor).then(
-        user =>{
-          console.log('aqui', user);
-        },
-        error =>{
-          this.setState({alertMessage:error.data.error});
-        }
-      )
-    }
-    else{
-      console.log('campos obrigatorios')
-    }
-}
-    render() {
-      const {donor} = this.state;
-        return (
-            <>
-            <CadastroCss/>
-              <div className="content">
-                  <h1 className="title">Novo Doador</h1>
-                  <Form name='htmlFor'  onSubmit={this.handleSubmit}>
-                  <Card>
-                    <CardHeader>
-                        <h4 className='title'>Dados Pessoais</h4>
-                    </CardHeader>
-                    <CardBody>
-                      <Row>
-                        <Col className="pr-md-3" md="4">
-                          <FormGroup>
+      return (
+        <>
+          <CadastroCss/>
+            <div className="content">
+              <h1 className="title">Novo Doador</h1>
+                <Form name='htmlFor'  onSubmit={this.handleSubmit}>
+                <Card>
+                  <CardHeader>
+                    <h4 className='title'>Dados Pessoais</h4>
+                    <ModalC
+                    />
+                  </CardHeader>
+                  <CardBody>
+                    <Row>
+                      <Col className="pr-md-3" md="4">
+                        <FormGroup>
                             <label>Nome Completo</label>
                             <Input
                               placeholder="Nome Completo"

@@ -69,8 +69,9 @@ class MainNavbar extends Component {
     });
   };
   signOut = async (e) =>{
-    await sessionStorage.removeItem('@lotus:user');
-    this.prop.history.push('/');
+    await sessionStorage.removeItem('@lotus:user')
+    this.setState({loggedIn:true})
+    window.location.reload()
   }
   render() {
     return (
