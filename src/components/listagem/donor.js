@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import Style from './style'
-import {isSameDay,isPast} from 'date-fns'
+import {isSameDay,isAfter} from 'date-fns'
 import {
     Card,
     CardBody,
@@ -39,7 +39,7 @@ class Donor extends Component{
       if(isSameDay(new Date(),data)){
         return 'hoje'
       }
-      else if(isPast(new Date(),data)){
+      else if(isAfter(new Date(),data)){
         return 'pendente'
       }
       else{
@@ -93,7 +93,7 @@ class Donor extends Component{
                             <Input
                               placeholder="Nome Completo"
                               type="text"
-                              name="nomecompleto" value={donor.nome_completo}
+                              name="nome_completo" value={donor.nome_completo}
                               onChange={this.handleChange}
                               mask="+4\9 99 999 99"
                             // require
@@ -189,7 +189,7 @@ class Donor extends Component{
                             <Input
                               placeholder="CE"
                               type="text"
-                              name="estado" value={donor.address[0].state}
+                              name="state" value={donor.address[0].state}
                               onChange={this.handleChange}
                             />
                           </FormGroup>
@@ -200,7 +200,7 @@ class Donor extends Component{
                             <Input
                               placeholder="Juazeiro do Norte"
                               type="text"
-                              name="cidade" value={donor.address[0].city}
+                              name="city" value={donor.address[0].city}
                               onChange={this.handleChange}
                             />
                           </FormGroup>

@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import CadastroCss from './cadastroStyled';
 import {setDonors} from '../../services/userServices'
 import InputM from 'react-input-mask'
-import ModalC from '../Modal/Modal'
+// import ModalC from '../Modal/Modal'
 import {
   Button,
   Card,
@@ -13,8 +13,7 @@ import {
   Form,
   Input,
   Row,
-  Col,
-  ButtonToolbar
+  Col
 } from "reactstrap";
 
 class Cadastro extends Component {
@@ -52,19 +51,19 @@ class Cadastro extends Component {
   async handleSubmit(e) {
     e.preventDefault()
 
-    // const {donor} = this.state;
-    // console.log('doador:', donor);
-    //   await setDonors(donor).then(
-    //     user =>{
-    //       this.setState({alertMessage:'Doador Cadastrado com sucesso'});
-    //       this.setState({modalShow:true})
-    //       console.log('aqui', user);
-    //     },
-    //     error =>{
-    //       this.setState({alertMessage:error.data.error});
-    //       this.setState({modalShow:true})
-    //     }
-    //   )
+    const {donor} = this.state;
+    console.log('doador:', donor);
+      await setDonors(donor).then(
+        user =>{
+          this.setState({alertMessage:'Doador Cadastrado com sucesso'});
+          this.setState({modalShow:true})
+          console.log('aqui', user);
+        },
+        error =>{
+          this.setState({alertMessage:error.data.error});
+          this.setState({modalShow:true})
+        }
+      )
   } 
   render() {
     const {donor} = this.state;
@@ -77,8 +76,8 @@ class Cadastro extends Component {
                 <Card>
                   <CardHeader>
                     <h4 className='title'>Dados Pessoais</h4>
-                    <ModalC
-                    />
+                    {/* <ModalC
+                    /> */}
                   </CardHeader>
                   <CardBody>
                     <Row>
