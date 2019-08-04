@@ -2,9 +2,8 @@ import React,{Component} from "react";
 import CadastroCss from './cadastroStyled';
 import {setDonors} from '../../services/userServices'
 import InputM from 'react-input-mask'
-// import ModalC from '../Modal/Modal'
+import ModalC from '../Modal/Modal'
 import {
-  Button,
   Card,
   CardHeader,
   CardBody,
@@ -13,7 +12,8 @@ import {
   Form,
   Input,
   Row,
-  Col
+  Col,
+  UncontrolledAlert
 } from "reactstrap";
 
 class Cadastro extends Component {
@@ -36,44 +36,58 @@ class Cadastro extends Component {
         reference:'',
         complement:'',
         donated_at: new Date()
-      }
+      },
+      confirm:false,
+      modalShow:'',
+      alertMessage:''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.ChangeConfirm = this.ChangeConfirm.bind(this);
   }
-
+  
+  ChangeConfirm (e){
+    this.setState({confirm:!this.confirm})
+  }
   handleChange(e) {
     const { name, value } = e.target;
     const {donor}  = this.state;
     donor[name] = value;
     this.setState({donor});
   }
-  async handleSubmit(e) {
-    e.preventDefault()
-
+  
+  async handleSubmit() {
     const {donor} = this.state;
-    console.log('doador:', donor);
-      await setDonors(donor).then(
-        user =>{
-          this.setState({alertMessage:'Doador Cadastrado com sucesso'});
-          this.setState({modalShow:true})
-          console.log('aqui', user);
-        },
-        error =>{
-          this.setState({alertMessage:error.data.error});
-          this.setState({modalShow:true})
-        }
-      )
+      console.log(donor);
+      await setDonors(donor)
+        .then(
+          response => { 
+            console.log('here', response);
+            this.setState({modalShow:'success'})
+            this.setState({alertMessage:'Doador Cadastrado com sucesso'});
+            this.props.history.push('/admin/cadastrar')
+          },
+          error => {
+            this.setState({modalShow:'danger'})
+            this.setState({alertMessage:(error.response)? error.response.data.error : "Error"})
+            this.props.history.push('/admin/cadastrar')
+          }
+        )
   } 
   render() {
     const {donor} = this.state;
       return (
         <>
           <CadastroCss/>
-            <div className="content">
+            <div className='content'>
               <h1 className="title">Novo Doador</h1>
                 <Form name='htmlFor'  onSubmit={this.handleSubmit}>
                 <Card>
+                  {(this.state.modalShow !=="") && <UncontrolledAlert color={this.state.modalShow}>
+                    <span>
+                      {this.state.alertMessage}
+                    </span>
+                  </UncontrolledAlert>}
                   <CardHeader>
                     <h4 className='title'>Dados Pessoais</h4>
                     {/* <ModalC
@@ -142,7 +156,7 @@ class Cadastro extends Component {
                     </CardHeader>
                     <CardBody>
                       <Row>
-                        <Col md="6">
+                        <Col md="4">
                           <FormGroup>
                             <label>E-mail</label>
                             <Input
@@ -154,9 +168,7 @@ class Cadastro extends Component {
                             />
                           </FormGroup>
                         </Col>
-                      </Row>
-                      <Row>
-                        <Col className="pr-md-1" md="4">
+                        <Col md="3">
                           <FormGroup>
                             <label>Telefone</label>
                             <InputM 
@@ -169,6 +181,9 @@ class Cadastro extends Component {
                             />
                           </FormGroup>
                         </Col>
+                      </Row>
+                      <Row>
+
                       </Row>
                     </CardBody>
                   </Card>
@@ -279,15 +294,6 @@ class Cadastro extends Component {
                         <Row>
                           <Col md='3'>
                             <FormGroup>
-                              {/* 
-                              <label>Data de Doação</label>
-                              <Input
-                                className="form-control"
-                                placeholder="dd/mm/aaaa"
-                                type="date"
-                                
-                                
-                              /> */}
                               <Input
                                 placeholder="dd/mm/aaaa"
                                 type="date"
@@ -299,9 +305,12 @@ class Cadastro extends Component {
                         </Row>
                       </CardBody>
                       <CardFooter>
-                        <Button className="btn-fill" color="info" type="submit">
-                          Cadastrar
-                        </Button>
+                        <ModalC
+                          name="Cadastrar"
+                          color="info"
+                          sendFunction={this.handleSubmit}
+                          context="Tem certeza que deseja cadastar esse Doador?"
+                        />
                       </CardFooter>
                     </Card>
                   </Form>
@@ -310,4 +319,4 @@ class Cadastro extends Component {
         );
     }
 }
-export default Cadastro; 
+export default Cadastro

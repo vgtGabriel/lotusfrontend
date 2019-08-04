@@ -1,11 +1,7 @@
 import api from '../services/api';
 
 export const login = async (data) =>{
-    const {email,password} = data;
-    const response = await api.post('/auth',{
-        email:email,
-        password:password
-    });
+    const response = await api.post('/auth',data);
     await sessionStorage.setItem(
         '@lotus:user',JSON.stringify(response.data),
     );
@@ -27,7 +23,8 @@ export const setDonors = async(data) =>{
         headers: {'Authorization' : 'bearer '+ user.token}
     }
     const response = await api.post('/donors',data,config)
-    return response.data
+    console.log('resposta', response);
+    return response
 }
 export const getDonorsList = async()=>{
     const user = await JSON.parse(sessionStorage.getItem('@lotus:user'))
@@ -35,7 +32,13 @@ export const getDonorsList = async()=>{
         headers: {'Authorization' : 'bearer '+ user.token}
     }
     const response = await api.get('/donors',config)
-
-    console.log('reponse:' , response.data)
-    return response.data
+    return response
+}
+export const deleteDonor = async(data)=>{
+    const user = await JSON.parse(sessionStorage.getItem('@lotus:user'));
+    const config = {
+        headers: {'Authorization' : 'bearer '+ user.token}
+    } 
+    const response = await api.delete(`/donors/${data}`,config)
+    return response
 }

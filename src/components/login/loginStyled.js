@@ -15,22 +15,21 @@ export const InputBorder = styled.div`
     border-radius:4rem;
 `
 export const InputsLogin = styled.input`
-border: 1px solid #e4e7ea;
-    border-radius:2.5rem;
+    border: 1px solid #e4e7ea;
     width:100%;
     display:flex;
     background:#fff;
     border-radius: 2.1rem;
-    font-size: 16px;
-    padding:1rem 1rem;
-    margin-left:2rem;      
+    font-size: 14px;
+    padding:0.6rem 0.6rem;
+    margin-left:1rem;      
 
 `
 export const BtnLogin = styled.button`
     width: 100%;
     background: #006699;
-    padding: 10px;
-    font-size: 20px;
+    padding: 8px;
+    font-size: 15px;
     display: block;
     border: none;
     color: #fff;

@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom'
 import {login} from '../../services/userServices'
 import icon from '../../images/avatar.svg'
 import lock from '../../images/lock.svg'
-import Checkbox from '../checkbox/checkbox'
+// import Checkbox from '../checkbox/checkbox'
 
 import {
     FormGroup,
@@ -20,44 +20,43 @@ class Login extends React.Component {
             password: '',
             submitted: false,
             alertMessage:null,
-            loggedIn:false
+            loggedIn:false,
+            remember:false
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     async componentDidMount(){
-        // this.load();
+        const login = JSON.parse(localStorage.getItem("date"))
+        if(login){
+            if(login.remember){
+
+                this.setState({remember:login.remember})
+                this.setState({email:login.email})
+            }
+        }
     }
-    // load = async () =>{
-    //     const load = await loadAccount();
-    //     if(load){
-    //         this.props.history.push('/admin/home');
-    //     }
-    //     else
-    //         this.props.history.push('/');
-    // }
     handleChange = e => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
-
     handleSubmit = e => {
         e.preventDefault()
         const { email, password } = this.state
         if (!(email && password))
             return
         this.setState({ submitted: true })
-        login({email,password}).then(
-            user =>{
+        login({email,password})
+            .then(response => { 
                 this.setState({loggedIn : true})
-                // this.props.history.push('/admin/home')
+                console.log(response)
             },
-            error =>{
+            error => {
+                console.log(error)
                 this.setState({loggedIn : false})
-                this.setState({alertMessage:error.data})
-            }
-        )
+                this.setState({alertMessage:error.response.data.error})
+            });
     }
     render() {
         const {loggingIn} = this.props
@@ -65,12 +64,12 @@ class Login extends React.Component {
 
         if(this.state.loggedIn===true){
             return (
-                <Redirect to={'/admin'}/>
+                <Redirect to={'/admin/home'}/>
             )
         }
         if(sessionStorage.getItem('@lotus:user')){
             return (
-                <Redirect to={'/admin'}/>
+                <Redirect to={'/admin/home'}/>
             )
         }
         return (
@@ -118,7 +117,10 @@ class Login extends React.Component {
                         {loggingIn && <img src="#" alt='carregando'/>}
                         {/* img é para colocar algum gif de carregando */}
                         <br/>
-                        <Checkbox/>
+                        {/* <Checkbox
+                            value ={this.remember}
+                            onChange={this.ChangeRemember}
+                        /> */}
                     </FormGroup>
                 </Form>
             </LoginContent>

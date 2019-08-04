@@ -189,7 +189,8 @@ class MainNavbar extends Component {
                       <DropdownItem className="nav-item">Settings</DropdownItem>
                     </NavLink>
                     <DropdownItem divider tag="li" />
-                    <NavLink tag="li" onClick={this.signOut}>
+                    <NavLink tag="li" onClick={this.props.signOut}>
+                    {/* <NavLink tag="li" onClick={this.signOut}> */}
                       <DropdownItem className="nav-item">Log out</DropdownItem>
                     </NavLink>
                   </DropdownMenu>

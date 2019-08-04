@@ -7,6 +7,7 @@ import {
     CardBody,
     Input,
     FormGroup,
+    Table
 } from 'reactstrap';
 import {getDonorsList} from '../../services/userServices'
 import Donor from './donor'
@@ -14,15 +15,27 @@ import Donor from './donor'
 class ToListDonors extends Component {
     constructor(props){
         super(props);
-
         this.state={
             donorerList:[]
         }
+        this.updatedStatus = this.updatedStatus.bind(this);
     }
     async componentDidMount(){
         await getDonorsList().then(
             response=>{
-                this.setState({donorerList:response},()=>{
+                this.setState({donorerList:response.data},()=>{
+                })
+            },
+            error=>{
+                console.log('error')
+            }
+        )
+    }
+    async updatedStatus (){
+        await getDonorsList().then(
+            response=>{
+                this.setState({donorerList:response.data},()=>{
+                    this.props.history.push('/admin/list')
                     console.log('lista:', this.state.donorerList)
                 })
             },
@@ -57,21 +70,28 @@ class ToListDonors extends Component {
                 <Card>
                     <CardBody>
                         <Row>
-                            <Col md='4'>
-                                <h4>Nome do Doador</h4>
-                            </Col>
-                            <Col md='4'>
-                                <h4>Data de Doação</h4>
+                            <Col md='3'>
+                                <h5>Nome do Doador</h5>
                             </Col>
                             <Col md='3'>
-                                <h4>Status</h4>
+                                <h5>Data de Doação</h5>
+                            </Col>
+                            <Col md='2'>
+                                <h5>Status</h5>
+                            </Col>
+                            <Col>
+                                <h5>Valor da Doação</h5>
                             </Col>
                         </Row>
                     </CardBody>
                 </Card>
-                {this.state.donorerList.map(thisDonor =>(
-                            <Donor key ={thisDonor.id} donor = {thisDonor} />
+                <Table>
+                    <tbody>
+                    {this.state.donorerList.map(thisDonor =>(
+                        <Donor testando={this.updatedStatus} key ={thisDonor.id} donor = {thisDonor} />
                         ))}
+                    </tbody>
+                </Table>
                </div>
             </>
         );

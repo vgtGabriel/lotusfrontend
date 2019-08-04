@@ -56,6 +56,10 @@ class Admin extends Component {
       this.refs.mainPanel.scrollTop = 0;
     }
   }
+  signOut = async () =>{
+    await sessionStorage.removeItem('@lotus:user')
+    window.location.reload()
+  }
   toggleSidebar = () => {
     document.documentElement.classList.toggle("nav-open");
     this.setState({ sidebarOpened: !this.state.sidebarOpened });
@@ -121,6 +125,7 @@ class Admin extends Component {
             >
             <MainNavbar
               {...this.props}
+              signOut = {this.signOut}
               brandText={this.getBrandText(this.props.location.pathname)}
               toggleSidebar={this.toggleSidebar}
               sidebarOpened={this.state.sidebarOpened}

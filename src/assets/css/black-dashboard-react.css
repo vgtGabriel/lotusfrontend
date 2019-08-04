@@ -1665,8 +1665,8 @@ textarea.form-control {
   vertical-align: middle;
   user-select: none;
   border: 1px solid transparent;
-  padding: 11px 40px;
-  font-size: 0.875rem;
+  padding: 10px 30px;
+  font-size: 0.7rem;
   line-height: 1.35em;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
@@ -10679,7 +10679,7 @@ hr {
       position: relative;
       text-transform: uppercase;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.7rem;
       padding: 10px 8px;
       line-height: 1.625rem; }
     .sidebar .nav li:first-child > a,
